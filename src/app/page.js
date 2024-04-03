@@ -1,3 +1,5 @@
+'use client'
+
 import Login from '@/components/Login'
 
 const Homepage = () => {

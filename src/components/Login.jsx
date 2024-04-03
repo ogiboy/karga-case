@@ -1,40 +1,73 @@
-'use client'
-
-import { useState } from 'react'
+import UserContext from '@/context/users'
+import { useRouter } from 'next/navigation'
+import { useContext, useEffect, useState } from 'react'
 
 const Login = () => {
-  const [loginInfo, setLoginInfo] = useState({
-    username: '',
-    password: '',
-  })
+  const { loginInfo, setLoginInfo, initialState } = useContext(UserContext)
 
-  const handleSubmit = (e) => {
+  const router = useRouter()
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
+    // console.log(loginInfo)
+
+    const formData = new FormData(e.currentTarget)
+    const email = formData.get('email')
+    const password = formData.get('password')
+
+    try {
+      const response = await fetch(
+        'https://api.management.parse25proje.link/api/auth/login',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+        }
+      )
+      const data = await response.json()
+
+      if (!data.status) {
+        throw new Error(data.messages)
+      } else if (data.status) {
+        console.log(data)
+        setLoginInfo((prevInfo) => ({ ...prevInfo, token: data.data.token }))
+        router.push('/dashboard')
+      }
+    } catch (error) {
+      console.error(error)
+    } finally {
+      setLoginInfo((prevInfo) => ({ ...initialState, token: prevInfo.token }))
+    }
   }
 
   const handleInputs = (e) => {
     // console.log(e)
-    if (e.target.name === 'username') {
-      setLoginInfo((prevInfo) => ({ ...prevInfo, username: e.target.value }))
+    if (e.target.name === 'email') {
+      setLoginInfo((prevInfo) => ({ ...prevInfo, email: e.target.value }))
     } else if (e.target.name === 'password') {
       setLoginInfo((prevInfo) => ({ ...prevInfo, password: e.target.value }))
     }
   }
 
+  useEffect(() => {
+    console.log(loginInfo)
+  }, [loginInfo])
+
   return (
     <div className="w-2/3 min-h-42 mx-auto my-5 px-1 py-2 border rounded-md ">
       <form onSubmit={(e) => handleSubmit(e)} className="h-full" action="">
         <fieldset className="py-2 w-full flex justify-evenly items-center text-center">
-          <label className="w-2/5" htmlFor="username">
+          <label className="w-2/5" htmlFor="email">
             Kullanıcı adı{' '}
           </label>
           <input
             className="outline w-1/2 rounded-lg mx-2"
-            id="username"
-            type="text"
+            id="email"
+            type="email"
             onChange={(e) => handleInputs(e)}
-            name="username"
-            value={loginInfo.username}
+            name="email"
+            value={loginInfo.email}
+            required
           />
         </fieldset>
         <fieldset className="py-2 w-full flex justify-evenly items-center text-center">
@@ -48,6 +81,7 @@ const Login = () => {
             onChange={(e) => handleInputs(e)}
             name="password"
             value={loginInfo.password}
+            required
           />
         </fieldset>
         <hr />

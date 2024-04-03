@@ -1,5 +1,7 @@
 'use client'
 
+import Boards from '@/components/Boards'
+import Sidebar from '@/components/Sidebar'
 import UserContext from '@/context/users'
 import { useContext, useEffect, useState } from 'react'
 
@@ -41,18 +43,10 @@ const Dashboard = () => {
   }, [boards])
 
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <div className="flex justify-evenly items-center">
-        {boards.length > 0 &&
-          boards.map((board) => {
-            return (
-              <div className="border-2 rounded-md h-96" key={board.id}>
-                <h2>{board.name}</h2>
-              </div>
-            )
-          })}
-      </div>
+    <div className="w-screen h-screen flex flex-row">
+      <Sidebar />
+
+      <Boards boards={boards} />
     </div>
   )
 }

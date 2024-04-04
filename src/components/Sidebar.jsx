@@ -5,7 +5,7 @@ import { FaAngleDown } from 'react-icons/fa6'
 import { Transition } from '@headlessui/react'
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState({})
+  const [isOpen, setIsOpen] = useState(null)
 
   const icons = [
     {
@@ -71,19 +71,9 @@ const Sidebar = () => {
   const bottomIcons = icons.slice(halfIconCount)
 
   const handleAccordion = (itemId) => {
-    if (itemId === isOpen) {
-      setIsOpen(null)
-    } else {
-      setIsOpen(itemId)
-    }
+    console.log(itemId)
+    setIsOpen((prev) => (prev === itemId ? null : itemId))
   }
-
-  // const handleAccordion = (itemId) => {
-  //   setIsOpen((prev) => ({
-  //     ...prev,
-  //     [itemId]: !prev[itemId],
-  //   }))
-  // }
 
   const AccordionItem = ({ item, isOpen, handleAccordion }) => {
     const accordionItems = [
@@ -108,10 +98,16 @@ const Sidebar = () => {
         notf: 10,
       },
     ]
-
+    const randomColor =
+      '#' + (((1 << 24) * Math.random()) | 0).toString(16).padStart(6, '0')
     return (
-      <div key={item.id}>
+      <div
+        className="hover:bg-slate-100 rounded-md py-2 px-1 my-2"
+        onClick={() => handleAccordion(item.id)}
+        key={item.id}
+      >
         <h1 className="text-nowrap flex justify-between items-center cursor-default">
+          <span></span>
           {item.name}{' '}
           <span>
             <FaAngleDown />
@@ -120,10 +116,10 @@ const Sidebar = () => {
         <div>
           {accordionItems.map((items) => {
             return (
-              <div onClick={() => handleAccordion(items.id)} key={items.id}>
+              <div key={items.id}>
                 <Transition
                   appear={true}
-                  show={isOpen === items.id}
+                  show={isOpen === item.id}
                   enter="transform transition duration-200"
                   enterFrom="opacity-0 scale-50"
                   enterTo="opacity-100 scale-100"

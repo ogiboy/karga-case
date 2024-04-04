@@ -2,9 +2,10 @@ import { useState } from 'react'
 import { FiBell } from 'react-icons/fi'
 import { MdOutlineAccountCircle } from 'react-icons/md'
 import { FaAngleDown } from 'react-icons/fa6'
+import { Transition } from '@headlessui/react'
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState({})
 
   const icons = [
     {
@@ -47,19 +48,19 @@ const Sidebar = () => {
 
   const projects = [
     {
-      id: 1,
+      id: 10,
       name: 'Proje İsmi 1',
     },
     {
-      id: 2,
+      id: 20,
       name: 'Proje İsmi 2',
     },
     {
-      id: 3,
+      id: 30,
       name: 'Proje İsmi 3',
     },
     {
-      id: 4,
+      id: 40,
       name: 'Proje İsmi 4',
     },
   ]
@@ -69,25 +70,40 @@ const Sidebar = () => {
   const topIcons = icons.slice(0, halfIconCount)
   const bottomIcons = icons.slice(halfIconCount)
 
-  const AccordionItem = ({ item, isOpen }) => {
+  const handleAccordion = (itemId) => {
+    if (itemId === isOpen) {
+      setIsOpen(null)
+    } else {
+      setIsOpen(itemId)
+    }
+  }
+
+  // const handleAccordion = (itemId) => {
+  //   setIsOpen((prev) => ({
+  //     ...prev,
+  //     [itemId]: !prev[itemId],
+  //   }))
+  // }
+
+  const AccordionItem = ({ item, isOpen, handleAccordion }) => {
     const accordionItems = [
       {
-        id: 1,
+        id: 11,
         name: 'Overview',
         notf: 10,
       },
       {
-        id: 2,
+        id: 22,
         name: 'Notifications',
         notf: 10,
       },
       {
-        id: 3,
+        id: 33,
         name: 'Analytics',
         notf: 10,
       },
       {
-        id: 4,
+        id: 44,
         name: 'Reports',
         notf: 10,
       },
@@ -102,12 +118,23 @@ const Sidebar = () => {
           </span>
         </h1>
         <div>
-          {accordionItems.map((item) => {
+          {accordionItems.map((items) => {
             return (
-              <div key={item.id}>
-                <p className="text-xs flex justify-between items-center">
-                  {item.name} <span>{item.notf}</span>
-                </p>
+              <div onClick={() => handleAccordion(items.id)} key={items.id}>
+                <Transition
+                  appear={true}
+                  show={isOpen === items.id}
+                  enter="transform transition duration-200"
+                  enterFrom="opacity-0 scale-50"
+                  enterTo="opacity-100 scale-100"
+                  leave="transform duration-200 transition ease-in-out"
+                  leaveFrom="opacity-100 scale-100 "
+                  leaveTo="opacity-0 scale-95 "
+                >
+                  <p className="text-xs flex justify-between items-center">
+                    {items.name} <span>{items.notf}</span>
+                  </p>
+                </Transition>
               </div>
             )
           })}
@@ -140,7 +167,11 @@ const Sidebar = () => {
         </div>
         <div>
           {projects.map((item) => (
-            <AccordionItem item={item} />
+            <AccordionItem
+              item={item}
+              isOpen={isOpen}
+              handleAccordion={handleAccordion}
+            />
           ))}
         </div>
       </div>

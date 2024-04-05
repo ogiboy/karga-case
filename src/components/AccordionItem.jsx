@@ -2,30 +2,7 @@ import { FaAngleDown } from 'react-icons/fa6'
 import { FaAngleUp } from 'react-icons/fa6'
 import { Transition } from '@headlessui/react'
 
-const AccordionItem = ({ item, isOpen, handleAccordion }) => {
-  const accordionItems = [
-    {
-      id: 11,
-      name: 'Overview',
-      notf: 10,
-    },
-    {
-      id: 22,
-      name: 'Notifications',
-      notf: 10,
-    },
-    {
-      id: 33,
-      name: 'Analytics',
-      notf: 10,
-    },
-    {
-      id: 44,
-      name: 'Reports',
-      notf: 10,
-    },
-  ]
-
+const AccordionItem = ({ item, isOpen, handleAccordion, accordionItems }) => {
   const randomColor = () => {
     return '#' + (((1 << 24) * Math.random()) | 0).toString(16).padStart(6, '0')
   }
@@ -34,7 +11,7 @@ const AccordionItem = ({ item, isOpen, handleAccordion }) => {
 
   return (
     <div
-      className="  py-2 px-1 my-2 cursor-pointer"
+      className="w-full py-2 px-3 my-2 cursor-pointer tracking-wider"
       onClick={() => handleAccordion(item.id)}
       key={item.id}
     >
@@ -43,7 +20,7 @@ const AccordionItem = ({ item, isOpen, handleAccordion }) => {
           className="border w-2 h-2 rounded-lg"
           style={{ backgroundColor: randomColor() }}
         ></span>
-        {item.name}{' '}
+        <span>{item.name}</span>
         <span>{isOpen === item.id ? <FaAngleUp /> : <FaAngleDown />}</span>
       </h1>
       <div>
@@ -60,7 +37,7 @@ const AccordionItem = ({ item, isOpen, handleAccordion }) => {
                 leaveFrom="opacity-100 scale-100 "
                 leaveTo="opacity-0 scale-95 "
               >
-                <p className="hover:bg-slate-100 rounded-md text-xs flex justify-between items-center">
+                <p className="hover:bg-slate-100 rounded-md text-xs flex justify-between items-center my-3">
                   {items.name} <span>{items.notf}</span>
                 </p>
               </Transition>

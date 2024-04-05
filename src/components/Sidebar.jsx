@@ -1,10 +1,34 @@
 import { useState } from 'react'
 import { FiBell } from 'react-icons/fi'
 import { MdOutlineAccountCircle } from 'react-icons/md'
+import { IoStatsChartSharp } from 'react-icons/io5'
 import AccordionItem from './AccordionItem'
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(null)
+
+  const [accordionItems, setAccordionItems] = useState([
+    {
+      id: 11,
+      name: 'Overview',
+      notf: 10,
+    },
+    {
+      id: 22,
+      name: 'Notifications',
+      notf: 10,
+    },
+    {
+      id: 33,
+      name: 'Analytics',
+      notf: 10,
+    },
+    {
+      id: 44,
+      name: 'Reports',
+      notf: 10,
+    },
+  ])
 
   const icons = [
     {
@@ -96,14 +120,19 @@ const Sidebar = () => {
         <div className="py-5 flex justify-start items-start">
           <h1 className="mx-2 text-lg">Projeler</h1>
         </div>
-        <div>
+        <div className="flex flex-col justify-between items-center w-full">
           {projects.map((item) => (
             <AccordionItem
               item={item}
               isOpen={isOpen}
               handleAccordion={handleAccordion}
+              accordionItems={accordionItems}
             />
           ))}
+        </div>
+        <div className="flex justify-evenly items-center py-2 font-thin text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-md cursor-pointer">
+          <IoStatsChartSharp />
+          <p>Proje Oluştur</p>
         </div>
       </div>
     </div>

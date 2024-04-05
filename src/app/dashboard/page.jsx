@@ -43,7 +43,7 @@ const Dashboard = () => {
   }, [boards])
 
   return (
-    <div className="w-screen h-screen flex flex-row">
+    <div className="w-screen h-screen flex flex-row cursor-default">
       <Sidebar />
 
       <Boards boards={boards} />

@@ -98,16 +98,26 @@ const Sidebar = () => {
         notf: 10,
       },
     ]
-    const randomColor =
-      '#' + (((1 << 24) * Math.random()) | 0).toString(16).padStart(6, '0')
+
+    const randomColor = () => {
+      return (
+        '#' + (((1 << 24) * Math.random()) | 0).toString(16).padStart(6, '0')
+      )
+    }
+
+    console.log(randomColor())
+
     return (
       <div
-        className="hover:bg-slate-100 rounded-md py-2 px-1 my-2"
+        className="hover:bg-slate-100 rounded-md py-2 px-1 my-2 cursor-pointer"
         onClick={() => handleAccordion(item.id)}
         key={item.id}
       >
-        <h1 className="text-nowrap flex justify-between items-center cursor-default">
-          <span></span>
+        <h1 className="text-nowrap flex justify-between items-center">
+          <span
+            className="border w-2 h-2 rounded-lg"
+            style={{ backgroundColor: randomColor() }}
+          ></span>
           {item.name}{' '}
           <span>
             <FaAngleDown />

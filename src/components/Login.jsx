@@ -57,7 +57,7 @@ const Login = () => {
       <form onSubmit={(e) => handleSubmit(e)} className="h-full" action="">
         <fieldset className="py-2 w-full flex justify-evenly items-center text-center">
           <label className="w-2/5" htmlFor="email">
-            Kullanıcı adı{' '}
+            Email{' '}
           </label>
           <input
             className="outline w-1/2 rounded-lg mx-2 px-2"

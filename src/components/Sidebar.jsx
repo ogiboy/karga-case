@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { FiBell } from 'react-icons/fi'
 import { MdOutlineAccountCircle } from 'react-icons/md'
 import { FaAngleDown } from 'react-icons/fa6'
+import { FaAngleUp } from 'react-icons/fa6'
 import { Transition } from '@headlessui/react'
 
 const Sidebar = () => {
@@ -119,9 +120,7 @@ const Sidebar = () => {
             style={{ backgroundColor: randomColor() }}
           ></span>
           {item.name}{' '}
-          <span>
-            <FaAngleDown />
-          </span>
+          <span>{isOpen === item.id ? <FaAngleUp /> : <FaAngleDown />}</span>
         </h1>
         <div>
           {accordionItems.map((items) => {

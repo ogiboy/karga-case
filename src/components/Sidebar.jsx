@@ -100,7 +100,7 @@ const Sidebar = () => {
 
   return (
     <div className="w-1/3 flex flex-row">
-      <div className="w-2/5 px-3 flex flex-col items-center justify-between bg-indigo-900/90 text-gray-600 ">
+      <div className="w-1/5 px-3 flex flex-col items-center justify-between bg-indigo-900/90 text-gray-600 ">
         <div className="">
           {topIcons.map((icon) => (
             <button className={bellStyles} key={icon.id}>
@@ -116,11 +116,11 @@ const Sidebar = () => {
           ))}
         </div>
       </div>
-      <div className="w-3/5 mx-5">
+      <div className="w-full px-5">
         <div className="py-5 flex justify-start items-start">
-          <h1 className="mx-2 text-lg">Projeler</h1>
+          <h1 className="mx-2 text-lg text-black">Projeler</h1>
         </div>
-        <div className="flex flex-col justify-between items-center w-full">
+        <div className="flex flex-col justify-between items-center w-full tracking-tight">
           {projects.map((item) => (
             <AccordionItem
               item={item}
@@ -130,9 +130,9 @@ const Sidebar = () => {
             />
           ))}
         </div>
-        <div className="flex justify-evenly items-center py-2 font-thin text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-md cursor-pointer">
+        <div className="flex justify-start items-center py-2 font-thin text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-md cursor-pointer">
           <IoStatsChartSharp />
-          <p>Proje Oluştur</p>
+          <p className="px-3">Proje Oluştur</p>
         </div>
       </div>
     </div>

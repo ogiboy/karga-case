@@ -7,21 +7,27 @@ const AccordionItem = ({ item, isOpen, handleAccordion, accordionItems }) => {
     return '#' + (((1 << 24) * Math.random()) | 0).toString(16).padStart(6, '0')
   }
 
+  const isActive = isOpen === item.id
+
   console.log(randomColor())
 
   return (
     <div
-      className="w-full py-2 px-3 my-2 cursor-pointer tracking-wider"
+      className="w-full px-3 my-2 cursor-pointer tracking-wider text-black font-thin"
       onClick={() => handleAccordion(item.id)}
       key={item.id}
     >
-      <h1 className="hover:bg-slate-100 rounded-md text-nowrap flex justify-between items-center">
+      <h1
+        className={`hover:bg-slate-100 rounded-md h-full py-1 text-nowrap flex justify-between items-center ${
+          isActive && 'text-indigo-800 bg-slate-200 font-normal'
+        }`}
+      >
         <span
           className="border w-2 h-2 rounded-lg"
           style={{ backgroundColor: randomColor() }}
         ></span>
         <span>{item.name}</span>
-        <span>{isOpen === item.id ? <FaAngleUp /> : <FaAngleDown />}</span>
+        <span>{isActive ? <FaAngleUp /> : <FaAngleDown />}</span>
       </h1>
       <div>
         {accordionItems.map((items) => {
@@ -29,7 +35,7 @@ const AccordionItem = ({ item, isOpen, handleAccordion, accordionItems }) => {
             <div key={items.id}>
               <Transition
                 appear={true}
-                show={isOpen === item.id}
+                show={isActive}
                 enter="transform transition duration-200"
                 enterFrom="opacity-0 scale-50"
                 enterTo="opacity-100 scale-100"
@@ -37,8 +43,13 @@ const AccordionItem = ({ item, isOpen, handleAccordion, accordionItems }) => {
                 leaveFrom="opacity-100 scale-100 "
                 leaveTo="opacity-0 scale-95 "
               >
-                <p className="hover:bg-slate-100 rounded-md text-xs flex justify-between items-center my-3">
-                  {items.name} <span>{items.notf}</span>
+                <p
+                  className={`hover:bg-slate-100 text-black rounded-md text-xs flex justify-between items-center my-4 py-2 px-1 pl-7`}
+                >
+                  {items.name}{' '}
+                  <span className="outline outline-slate-300 bg-slate-100 rounded-lg py-[1px] px-[2px]">
+                    {items.notf}
+                  </span>
                 </p>
               </Transition>
             </div>

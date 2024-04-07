@@ -8,7 +8,9 @@ import { useContext, useEffect, useState } from 'react'
 const Dashboard = () => {
   const [boards, setBoards] = useState([])
 
-  const { loginInfo } = useContext(UserContext)
+  const token = localStorage.getItem('token')
+
+  console.log('login token: ' + token)
 
   useEffect(() => {
     const fetchBoards = async () => {
@@ -18,7 +20,7 @@ const Dashboard = () => {
           {
             headers: {
               'Content-Type': 'application/json',
-              Authorization: `Bearer ${loginInfo.token}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         )

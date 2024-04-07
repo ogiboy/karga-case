@@ -24,18 +24,19 @@ const Login = () => {
         }
       )
       const data = await response.json()
+      // document.cookie = `token=${data.data.token}; path=/; HttpOnly; Secure`
+      localStorage.setItem('token', data.data.token)
 
       if (!data.status) {
         throw new Error(data.messages)
       } else if (data.status) {
-        console.log(data)
         setLoginInfo((prevInfo) => ({ ...prevInfo, token: data.data.token }))
         router.push('/dashboard')
       }
     } catch (error) {
       console.error(error)
     } finally {
-      setLoginInfo((prevInfo) => ({ ...initialState, token: prevInfo.token }))
+      setLoginInfo((prevInfo) => ({ ...prevInfo, token: prevInfo.token }))
     }
   }
 
@@ -67,6 +68,7 @@ const Login = () => {
             name="email"
             value={loginInfo.email}
             required
+            autoComplete="email"
           />
         </fieldset>
         <fieldset className="py-2 w-full flex justify-evenly items-center text-center">

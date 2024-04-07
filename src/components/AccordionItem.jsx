@@ -9,8 +9,6 @@ const AccordionItem = ({ item, isOpen, handleAccordion, accordionItems }) => {
 
   const isActive = isOpen === item.id
 
-  console.log(randomColor())
-
   return (
     <div
       className="w-full px-3 my-2 cursor-pointer tracking-wider text-black font-thin"

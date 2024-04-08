@@ -32,7 +32,7 @@ const Login = () => {
       } else if (data.status) {
         setLoginInfo((prevInfo) => ({ ...prevInfo, token: data.data.token }))
         // localStorage.setItem('token', data.data.token)
-        Cookies.set('token', data.data.token)
+        Cookies.set('token', data.data.token, { expires: 1 })
         router.push('/dashboard')
       }
     } catch (error) {

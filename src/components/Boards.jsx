@@ -1,6 +1,8 @@
 import TaskItem from './TaskItem'
 
 import { useState } from 'react'
+import { FiPlus } from 'react-icons/fi'
+import { HiOutlineDotsCircleHorizontal } from 'react-icons/hi'
 
 const Boards = ({ boards }) => {
   const [currentTab, setCurrentTab] = useState(1)
@@ -48,16 +50,33 @@ const Boards = ({ boards }) => {
           </button>
         ))}
       </div>
-      <div className="overflow-x-scroll overflow-y-hidden flex justify-evenly items-center my-5 mx-2">
+      <div className="w-8/12 overflow-x-scroll overflow-y-hidden flex justify-evenly items-center my-5 mx-2 flex-nowrap">
         {boards.length > 0 &&
           boards.map((board) => {
             return (
               <div
-                className="border-2 bg-white rounded-md min-w-52 h-96 mx-5 my-2 p-1 overflow-y-scroll"
+                className="border-2 bg-white rounded-md min-w-64 h-96 mx-5 my-2 overflow-y-scroll"
                 key={board.id}
               >
-                <h2 className="py-1 px-2">
-                  {board.name} {board.tasks.length}
+                <h2 className="py-2 px-2 w-full border-b flex justify-between items-center max-h-fit">
+                  <div>
+                    <span>{board.name}</span>
+                    <span className="outline rounded-full mx-2 px-1">
+                      {board.tasks.length}
+                    </span>
+                  </div>
+                  <div className="w-1/2 flex justify-end items-center">
+                    <span className="scale-125 mx-1">
+                      <button className="w-full h-full flex justify-center items-center">
+                        <FiPlus />
+                      </button>
+                    </span>
+                    <span className="scale-125 mx-1">
+                      <button className="flex justify-center items-center">
+                        <HiOutlineDotsCircleHorizontal />
+                      </button>
+                    </span>
+                  </div>
                 </h2>
                 <div className="m-1">
                   {board.tasks.length > 0 &&

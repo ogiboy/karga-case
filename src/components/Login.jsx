@@ -1,4 +1,5 @@
 import UserContext from '@/context/users'
+import Cookies from 'js-cookie'
 import { useRouter } from 'next/navigation'
 import { useContext, useEffect, useState } from 'react'
 
@@ -25,12 +26,13 @@ const Login = () => {
       )
       const data = await response.json()
       // document.cookie = `token=${data.data.token}; path=/; HttpOnly; Secure`
-      localStorage.setItem('token', data.data.token)
 
       if (!data.status) {
         throw new Error(data.messages)
       } else if (data.status) {
         setLoginInfo((prevInfo) => ({ ...prevInfo, token: data.data.token }))
+        // localStorage.setItem('token', data.data.token)
+        Cookies.set('token', data.data.token)
         router.push('/dashboard')
       }
     } catch (error) {

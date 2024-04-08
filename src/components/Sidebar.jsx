@@ -1,8 +1,9 @@
+import AccordionItem from './AccordionItem'
+
 import { useState } from 'react'
 import { FiBell } from 'react-icons/fi'
 import { MdOutlineAccountCircle } from 'react-icons/md'
 import { IoStatsChartSharp } from 'react-icons/io5'
-import AccordionItem from './AccordionItem'
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(null)

@@ -1,5 +1,6 @@
-import { useState } from 'react'
 import TaskItem from './TaskItem'
+
+import { useState } from 'react'
 
 const Boards = ({ boards }) => {
   const [currentTab, setCurrentTab] = useState(1)

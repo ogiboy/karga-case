@@ -3,12 +3,15 @@
 import Boards from '@/components/Boards'
 import Sidebar from '@/components/Sidebar'
 import UserContext from '@/context/users'
+import Cookies from 'js-cookie'
+
 import { useContext, useEffect, useState } from 'react'
 
 const Dashboard = () => {
   const [boards, setBoards] = useState([])
 
-  const token = localStorage.getItem('token')
+  // const token = localStorage.getItem('token')
+  const token = Cookies.get('token')
 
   console.log('login token: ' + token)
 

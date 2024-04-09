@@ -15,31 +15,31 @@ const Dashboard = () => {
 
   // console.log('login token: ' + token)
 
-  useEffect(() => {
-    const fetchBoards = async () => {
-      try {
-        const response = await fetch(
-          'https://api.management.parse25proje.link/api/boards',
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        if (!response.ok) {
-          throw new Error('Board gelmedi :(')
+  const fetchBoards = async () => {
+    try {
+      const response = await fetch(
+        'https://api.management.parse25proje.link/api/boards',
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
         }
-
-        const data = await response.json()
-        setBoards(data.data)
-
-        console.log(boards)
-      } catch (error) {
-        console.error(error)
+      )
+      if (!response.ok) {
+        throw new Error('Board gelmedi :(')
       }
-    }
 
+      const data = await response.json()
+      setBoards(data.data)
+
+      console.log(boards)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
     fetchBoards()
   }, [])
 
@@ -50,14 +50,16 @@ const Dashboard = () => {
   const addTask = async (id) => {
     const taskName = prompt('Task ismi giriniz', 'Task')
     const taskDescription = prompt('Görev açıklaması giriniz.', 'Açıklama')
+    const startDate = new Date().toISOString()
+    const endDate = new Date(startDate.getDate() + 5).toISOString()
 
     const taskData = {
       name: taskName,
       description: taskDescription,
       boardId: id,
       flagId: id,
-      startDate: '2024-02-15T10:00:00',
-      endDate: '2024-02-20T10:00:00',
+      startDate,
+      endDate,
     }
 
     try {
@@ -83,6 +85,7 @@ const Dashboard = () => {
 
       const data = await response.json()
       console.log(data)
+      fetchBoards()
     } catch (error) {
       console.error(error)
     }

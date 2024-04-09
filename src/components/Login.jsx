@@ -1,46 +1,9 @@
-import UserContext from '@/context/users'
-import Cookies from 'js-cookie'
-import { useRouter } from 'next/navigation'
-import { useContext, useEffect, useState } from 'react'
+import UserContext from '@/context/context'
+
+import { useContext } from 'react'
 
 const Login = () => {
-  const { loginInfo, setLoginInfo, initialState } = useContext(UserContext)
-
-  const router = useRouter()
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-
-    const formData = new FormData(e.currentTarget)
-    const email = formData.get('email')
-    const password = formData.get('password')
-
-    try {
-      const response = await fetch(
-        'https://api.management.parse25proje.link/api/auth/login',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password }),
-        }
-      )
-      const data = await response.json()
-      // document.cookie = `token=${data.data.token}; path=/; HttpOnly; Secure`
-
-      if (!data.status) {
-        throw new Error(data.messages)
-      } else if (data.status) {
-        setLoginInfo((prevInfo) => ({ ...prevInfo, token: data.data.token }))
-        // localStorage.setItem('token', data.data.token)
-        Cookies.set('token', data.data.token, { expires: 1 })
-        router.push('/dashboard')
-      }
-    } catch (error) {
-      console.error(error)
-    } finally {
-      setLoginInfo((prevInfo) => ({ ...prevInfo, token: prevInfo.token }))
-    }
-  }
+  const { loginInfo, setLoginInfo, handleSubmit } = useContext(UserContext)
 
   const handleInputs = (e) => {
     // console.log(e)
@@ -50,10 +13,6 @@ const Login = () => {
       setLoginInfo((prevInfo) => ({ ...prevInfo, password: e.target.value }))
     }
   }
-
-  // useEffect(() => {
-  //   console.log(loginInfo)
-  // }, [loginInfo])
 
   return (
     <div className="w-2/3 min-h-42 mx-auto my-5 px-1 py-2 border rounded-md lg:w-1/3">
@@ -85,6 +44,7 @@ const Login = () => {
             name="password"
             value={loginInfo.password}
             required
+            autoComplete="on"
           />
         </fieldset>
         <hr />

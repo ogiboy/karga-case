@@ -89,7 +89,7 @@ const Sidebar = () => {
     },
   ]
 
-  const bellStyles = `hover:text-indigo-900 hover:bg-slate-200 rounded-sm cursor-pointer scale-150 p-2 my-3 flex justify-center items-center`
+  const bellStyles = `hover:text-indigo-900 hover:bg-slate-200 rounded-sm cursor-pointer scale-150 p-2 my-3 flex justify-center items-center transition-all ease-out duration-300 delay-75`
   const halfIconCount = Math.ceil(icons.length / 2)
   const topIcons = icons.slice(0, halfIconCount)
   const bottomIcons = icons.slice(halfIconCount)

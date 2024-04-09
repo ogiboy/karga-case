@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { FiPlus } from 'react-icons/fi'
 import { HiOutlineDotsCircleHorizontal } from 'react-icons/hi'
 
-const Boards = ({ boards }) => {
+const Boards = ({ boards, addTask }) => {
   const [currentTab, setCurrentTab] = useState(1)
 
   const buttons = [
@@ -67,7 +67,10 @@ const Boards = ({ boards }) => {
                   </div>
                   <div className="w-1/2 flex justify-end items-center">
                     <span className="scale-125 mx-1">
-                      <button className="w-full h-full flex justify-center items-center">
+                      <button
+                        onClick={() => addTask(board.id)}
+                        className="w-full h-full flex justify-center items-center"
+                      >
                         <FiPlus />
                       </button>
                     </span>

@@ -13,7 +13,7 @@ const Dashboard = () => {
   // const token = localStorage.getItem('token')
   const token = Cookies.get('token')
 
-  console.log('login token: ' + token)
+  // console.log('login token: ' + token)
 
   useEffect(() => {
     const fetchBoards = async () => {
@@ -47,11 +47,52 @@ const Dashboard = () => {
     console.log(boards)
   }, [boards])
 
+  const addTask = async (id) => {
+    const taskName = prompt('Task ismi giriniz', 'Task')
+    const taskDescription = prompt('Görev açıklaması giriniz.', 'Açıklama')
+
+    const taskData = {
+      name: taskName,
+      description: taskDescription,
+      boardId: id,
+      flagId: id,
+      startDate: '2024-02-15T10:00:00',
+      endDate: '2024-02-20T10:00:00',
+    }
+
+    try {
+      const response = await fetch(
+        'https://api.management.parse25proje.link/api/tasks',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(taskData),
+        }
+      )
+
+      if (!taskName && !taskDescription) {
+        throw new Error('Task girilmedi.')
+      }
+
+      if (!response.status) {
+        throw new Error('Task iletilmedi')
+      }
+
+      const data = await response.json()
+      console.log(data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <div className="w-screen h-screen overflow-x-hidden flex flex-row cursor-default text-indigo-800">
       <Sidebar />
 
-      <Boards boards={boards} />
+      <Boards boards={boards} addTask={addTask} />
     </div>
   )
 }

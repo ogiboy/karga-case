@@ -16,6 +16,7 @@ const initialState = {
 function Provider({ children }) {
   const [loginInfo, setLoginInfo] = useState(initialState)
   const [boards, setBoards] = useState([])
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const token = Cookies.get('token')
   const router = useRouter()
@@ -130,6 +131,8 @@ function Provider({ children }) {
     fetchBoards,
     boards,
     addTask,
+    isModalOpen,
+    setIsModalOpen,
   }
 
   return (

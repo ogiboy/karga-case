@@ -1,13 +1,19 @@
+import UserContext from '@/context/context'
+
+import { useContext } from 'react'
 import { CiCalendar } from 'react-icons/ci'
 
 const TaskItem = ({ key, item }) => {
+  const { setIsModalOpen } = useContext(UserContext)
+
   const createdAt = new Date(item.createdAt).toLocaleDateString('tr-TR')
   const updatedAt = new Date(item.updatedAt).toLocaleDateString('tr-TR')
 
   return (
     <div
-      className="border rounded-lg my-2 mx-1 h-32 p-1 flex flex-col justify-between items-start"
+      className="border rounded-lg my-2 mx-1 h-32 p-1 flex flex-col justify-between items-start cursor-pointer"
       key={key}
+      onClick={() => setIsModalOpen((p) => !p)}
     >
       <h3>{item.name}</h3>
       <p>{item.description}</p>

@@ -16,7 +16,7 @@ const initialState = {
 function Provider({ children }) {
   const [loginInfo, setLoginInfo] = useState(initialState)
   const [boards, setBoards] = useState([])
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(null)
 
   const token = Cookies.get('token')
   const router = useRouter()

@@ -49,7 +49,9 @@ const Login = () => {
         </fieldset>
         <hr />
         <div className="w-full h-14 flex justify-center items-center">
-          <button className="h-10 w-20 border rounded-md">Giriş Yap</button>
+          <button className="h-10 w-20 border rounded-md hover:bg-slate-300 transition-all duration-500">
+            Giriş Yap
+          </button>
         </div>
       </form>
     </div>

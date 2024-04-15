@@ -101,7 +101,7 @@ const Sidebar = () => {
 
   return (
     <div className="w-1/3 flex flex-row">
-      <div className="w-1/5 px-3 flex flex-col items-center justify-between bg-indigo-900/90 text-gray-600 ">
+      <div className="w-1/5 px-4 flex flex-col items-center justify-between bg-indigo-900/90 text-gray-600 ">
         <div className="">
           {topIcons.map((icon) => (
             <button className={bellStyles} key={icon.id}>

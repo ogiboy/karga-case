@@ -15,14 +15,13 @@ const Dashboard = () => {
   }, [])
 
   useEffect(() => {
-    console.log('modal state: ' + isModalOpen)
-  }, [isModalOpen])
+    console.log(boards)
+  }, [boards])
 
   return (
     <div className="w-screen h-screen overflow-x-hidden flex flex-row cursor-default text-indigo-800">
       <Sidebar />
       <Boards boards={boards} addTask={addTask} />
-      {isModalOpen && <Modal />}
     </div>
   )
 }
